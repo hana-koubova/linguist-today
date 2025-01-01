@@ -4,6 +4,7 @@ import os
 import random
 from categories import dropdown_cats, sub_cats_simple
 from helper import art_images
+import psycopg2
 
 from flask import Flask, render_template, request, url_for, redirect, flash, session, jsonify, send_file, send_from_directory, make_response
 from flask_bootstrap import Bootstrap5
