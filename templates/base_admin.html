@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="admin-menu" class="container-fluid text-center border text-white bg-dark p-2">
+    <div class="row">
+        <div class="col">
+            <a class="nav-link opacity-50" href="{{ url_for('dashboard') }}">Dashboard</a>
+        </div>
+        <div class="col">
+            <a class="nav-link opacity-50" href="{{ url_for('add_article') }}">Add article</a>
+        </div>
+        <div class="col">
+            <a class="nav-link opacity-50" href="{{ url_for('images') }}">Images</a>
+        </div>
+        <div class="col">
+            <a class="nav-link opacity-50" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+
+    </div>
+
+</div>
+
+{% block admin_content %}{% endblock %}
+
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base_admin.html" %}
+{% block admin_content %}
+
+<h1 class="text-center m-4">This is Admin Dashboard</h1>
+<h2 class="text-center m-4">Welcome Hana!</h2>
+
+<div class="container-fluid m-3 p-3 border">
+    <h3>Articles</h3>
+    <div class="row m-3 p-3 border justify-content-center">
+
+        {% for article in current_articles %}
+        <div class="col-8 border m-3 p-3">
+        
+            <h3>{{ article.title }}</h3>
+            <a href="{{ url_for('edit_article', article_id=article._id) }}">Edit</a>
+        
+        </div>
+        {% endfor %}
+        
+    </div>
+
+</div>
+
+
+
+{% endblock %}

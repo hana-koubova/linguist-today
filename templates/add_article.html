@@ -1,0 +1,80 @@
+{% extends "base_admin.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block admin_content %}
+
+<h1 class="text-center m-4">Add article</h1>
+
+<div class="row d-flex justify-content-center mb-3">
+    <div class="col-lg-6 col-md-10 col-sm-12">
+
+        <form class="edit_form" method="POST" action="{{ url_for('add_article') }}">     
+    
+            {{ form.csrf_token }}
+            <!-- Title-->
+            {{ form.title(class_="form-control", placeholder="Title") }}
+            <br>
+            <div class="row d-flex justify-content-center">
+                <!--Author-->
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <div class="input-group">
+                        {{ form.author(class_="form-control", placeholder="Author Name") }}
+                    </div>
+                </div>
+            
+                <!--Category-->
+                
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">Category</span>
+                        {{ form.category(class_="form-control form-select") }}
+                    </div>
+                </div>
+            </div>
+
+            <!--Image-->
+                
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">Image</span>
+                    {{ form.image_main(class_="form-control form-select") }}
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center">
+                <!--Meta data-->
+                <div class="input-group">
+                        {{ form.metadata(class_="form-control", placeholder="Meta Description") }}
+                </div>
+            </div>
+            <br>
+            
+            <div class="row d-flex justify-content-center">
+                <!--URL-->
+                <div class="input-group">
+                        {{ form.url(class_="form-control", placeholder="Url snippet") }}
+                </div>
+            </div>
+            <br>
+            <!--Article Text-->
+            
+            {{ ckeditor.create(value="Text", name="text") }}
+            <br>
+            <!--Active or Archive-->
+                
+            <div class="d-flex align-items-end">
+                {% for subfield in form.publish %}
+                    <div class="m-1">
+                        {{ subfield }} {{ subfield.label }}
+                    </div>
+                {% endfor %}
+            </div>
+            <br>
+            {{ form.submit(class="primary-btn form-control") }}
+    
+        </form>
+    </div>
+</div>
+
+{{ ckeditor.load(custom_url=url_for('static', filename='ckeditor/ckeditor.js')) }}
+
+{% endblock %}

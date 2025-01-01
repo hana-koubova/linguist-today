@@ -1,0 +1,32 @@
+{% extends "base_admin.html" %}
+{% block admin_content %}
+
+<h1 class="text-center m-4">Images</h1>
+
+<div class="container-fluid m-3 p-3 border">
+    <div class="row m-3 p-3 border justify-content-center">
+        <a href="{{ url_for('scan_images') }}">Scan Images</a>
+        <div class="col-8 border m-3 p-3">
+            {% for image in images_all %}
+            <div class="row">
+                <div class="col-6">
+                    <img class="img-small" src="static/images/article_images/{{ image.name }}" />
+                </div>
+                <div class="col-6">
+                    <h4>{{ image.name }}</h4>
+                    <p><b>alt: </b>{{ image.alt }}</p>
+                    <p><b>description: </b>{{ image.description }}</p>
+                    <a href="{{ url_for('edit_image', image_id=image._id) }}">Edit</a>
+                </div>
+
+            </div>
+            <hr>
+
+            {% endfor %}
+            
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

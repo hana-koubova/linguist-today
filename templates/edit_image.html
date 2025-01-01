@@ -1,0 +1,50 @@
+{% extends "base_admin.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block admin_content %}
+
+
+<div class="container">
+
+<h1 class="text-center m-4">Edit image</h1>
+<div class="row justify-content-center mb-5">
+    <div class="col-7">
+        <img class="img-large-home" src="../static/images/article_images/{{ image.name }}" />
+    </div>
+</div>
+
+<div class="row d-flex justify-content-center mb-3">
+    
+    <div class="col-lg-6 col-md-10 col-sm-12">
+
+        <form method="POST" action="{{ url_for('edit_image', image_id=image._id) }}">     
+    
+            {{ form.csrf_token }}
+            <!-- Name-->
+            {{ form.name(class_="form-control", value=(image.name).split('.')[0]) }}
+            <br>
+            <div class="row d-flex justify-content-center">
+                <!--Alt-->
+                    <div class="input-group">
+                        {{ form.alt(class_="form-control", value=image.alt) }}
+                    </div>
+            </div>
+            <br>
+            <div class="row d-flex justify-content-center">
+                <!--Description-->
+                
+                    <div class="input-group">
+                        {{ form.description(class_="form-control", value=image.description) }}
+                    </div>
+                
+            </div>
+
+            <br>
+            {{ form.submit(class="primary-btn form-control") }}
+        </form>
+    </div>
+</div>
+
+
+</div>
+
+{% endblock %}

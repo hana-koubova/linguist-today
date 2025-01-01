@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %} Linguist Today | Your Language Journal {% endblock %}
+{% block description %}"Linguist Today explores the world of Multilingualism, Language Learning and Linguistics. If you are a language enthusiast, then this community is for you."{% endblock %}
+{% block content %}
+
+<div class="container-fluid p-3 pt-5">
+    <div class="row border m-3">
+        <div class="col-3">
+            <h3 class="fw-bold">Latest Articles</h3>
+
+            <!--Latest article DIV-->
+            {% for article in latest_articles %}
+            <div class="container m-2">
+                <div class="row">
+                    <!--<div class="col fw-bold">{{ article.category.upper() }}</div>-->
+                    <div class="col date fw-bold">{{ article.date_published.strftime('%B %d, %Y').upper() }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="headline-link" href="{{ url_for('article', article_url=article.url) }}"><h4 class="fw-bold">{{ article.title }}</h4></a>
+
+                        <div class="small-letters">{{ (article.text[:120])|safe }}...</div>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+            {% endfor %}
+
+        </div>
+        <div class="col border">
+            <div class="row">
+                <div class="col-8">
+                    <!--MAIN Article-->
+                    <div class="container m-2">
+                        <div class="row">
+                            <div class="col">
+            
+                                <img class="img-large-home" src="static/images/article_images/{{ latest.image_main }}" alt="{{ images_dict[latest.image_main]['alt'] }}" />
+                                    
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                <a class="headline-link" href="{{ url_for('article', article_url=latest.url) }}"><h3 class="fw-bold">{{ latest.title }}</h3></a>
+
+                                <p class="text-center">{{ (latest.text[:80])|safe }}...</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <p>Popular Article</p>
+                    </div>
+                    <div class="row">
+                        <p>Popular Article</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Category</p>
+                </div>
+                <div class="col">
+                    <p>Category</p>
+                </div>
+                <div class="col">
+                    <p>Category</p>
+                </div>
+                <div class="col">
+                    <p>Category</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
+
+{% endblock %}

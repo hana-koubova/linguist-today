@@ -1,0 +1,119 @@
+{% extends "base_admin.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block admin_content %}
+
+
+<h1 class="text-center m-4">Edit article</h1>
+
+<div class="row d-flex justify-content-center mb-3">
+    <div class="col-lg-6 col-md-10 col-sm-12">
+
+        <form class="edit_form" method="POST" action="{{ url_for('edit_article', article_id=article._id) }}">     
+    
+            {{ form.csrf_token }}
+            <!-- Title-->
+            {{ form.title(class_="form-control", value=article.title) }}
+            <br>
+            <div class="row d-flex justify-content-center">
+                <!--Author-->
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <div class="input-group">
+                        {{ form.author(class_="form-control", value=article.author) }}
+                    </div>
+                </div>
+            
+                <!--Category-->
+                
+                <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                    <div class="input-group">
+                        <!--<span class="input-group-text" id="basic-addon1">Category</span>
+                        {{ form.category(class_="form-control form-select") }}-->
+                        <select name="category" class="form-control form-select">
+                            {% for cat in dropdown_cats %}
+                                {% if article.category == cat %}
+                                    <option selected>{{ cat }}</option>
+                                {% else %}
+                                    <option>{{ cat }}</option>
+                                {% endif %}
+        
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Image-->
+                
+            <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">Image</span>
+                    <!--{{ form.image_main(class_="form-control form-select") }}-->
+                    <select name="image_main" class="form-control form-select">
+                        {% for img in art_images  %}
+                            {% if article.image_main == img %}
+                                <option selected>{{ img }}</option>
+                            {% else %}
+                                <option>{{ img }}</option>
+                            {% endif %}
+    
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-center">
+                <!--Meta data-->
+                <div class="input-group">
+                        {{ form.metadata(class_="form-control", value=article.metadata) }}
+                </div>
+            </div>
+            <br>
+            <div class="row d-flex justify-content-center">
+                <!--URL-->
+                <div class="input-group">
+                        {{ form.url(class_="form-control", value=article.url) }}
+                </div>
+            </div>
+            <br>
+
+            <!--Job Info-->
+            
+            {{ ckeditor.create(value=article.text, name="text") }}
+            <br>
+            <!--Active or Archive-->
+                
+            <div class="d-flex align-items-end">
+                <!--{% for subfield in form.publish %}
+                    <div class="m-1">
+                        {{ subfield }} {{ subfield.label }}
+                    </div>
+                {% endfor %}-->
+                {% if publish == True %}
+
+                <input type="radio" id="publish-draft" name="publish" value="Draft" />
+                <label for="publish-draft">Draft</label>
+                
+                <input type="radio" id="publish-publish" name="publish" value="Publish" checked />
+                <label for="publish-publish">Publish</label>
+
+                {% else %}
+
+                <input type="radio" id="publish-draft" name="publish" value="Draft" checked />
+                <label for="publish-draft">Draft</label>
+                
+                <input type="radio" id="publish-publish" name="publish" value="Publish"  />
+                <label for="publish-publish">Publish</label>
+
+                {% endif %}
+            </div>
+            <br>
+            {{ form.submit(class="primary-btn form-control") }}
+    
+        </form>
+    </div>
+</div>
+
+{{ ckeditor.load(custom_url=url_for('static', filename='ckeditor/ckeditor.js')) }}
+
+{% endblock %}
