@@ -17,7 +17,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <a class="headline-link" href="{{ url_for('article', article_url=article.url) }}"><h4 class="fw-bold">{{ article.title }}</h4></a>
+                        <a class="headline-link" href="{{ url_for('article', article_url=article.url) }}"><h5 class="fw-bold">{{ article.title }}</h5></a>
 
                         <div class="small-letters">{{ (article.text[:120])|safe }}...</div>
                     </div>
@@ -51,13 +51,30 @@
 
                     </div>
                 </div>
+
                 <div class="col-lg-4 col-sm-10">
+                    {% for piece in popular %}
                     <div class="row">
-                        <p>Popular Article</p>
+                        <div class="container m-2">
+                            <div class="row">
+
+                                <div class="col">
+                                    <img class="img-small-home" src="static/images/article_images/{{ piece.image_main }}" alt="{{ images_dict[piece.image_main]['alt'] }}" />
+                                </div>
+    
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a class="headline-link" href="{{ url_for('article', article_url=piece.url) }}"><h5 class="fw-bold">{{ piece.title }}</h5></a>
+    
+                                    <div class="small-letters">{{ (piece.text[:60])|safe }}...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div class="row">
-                        <p>Popular Article</p>
-                    </div>
+                    {% endfor %}
+                    
                 </div>
 
             </div>

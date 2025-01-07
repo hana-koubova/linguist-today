@@ -93,10 +93,12 @@ def index():
                                       'description': image['description']}
     category_random = random.choice(sub_cats_simple)
     print(category_random)
+    popular = [articles.find_one({'title': 'The scientifically proven benefits of being bilingual'}), articles.find_one({'title': "Polyglots’ brain activity and what we know so far"})]
     return render_template('index.html',
                            latest_articles=latest_articles[:4],
                            latest = latest_articles[0],
-                           images_dict = images_dict)
+                           images_dict = images_dict,
+                           popular=popular)
 
 @app.route('/<article_url>')
 def article(article_url):
@@ -187,7 +189,7 @@ def add_article():
         }
         print(new_article['date_published'])
         articles.insert_one(new_article)
-        return "Article added!"
+        return "Article added!", {"Refresh": "3; url=/dashboard"}
 
 
     return render_template('add_article.html',
@@ -253,8 +255,8 @@ def scan_images():
             images_db.insert_one(new_image)
             upload += 1
     if upload > 0:
-        return 'Images uploaded to database.'
-    return 'No new images to upload.'
+        return 'Images uploaded to database.', {"Refresh": "3; url=/dashboard"}
+    return 'No new images to upload.', {"Refresh": "3; url=/dashboard"}
 
 @app.route('/edit_image/<image_id>', methods=['GET', 'POST'])
 @login_required

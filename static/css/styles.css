@@ -94,3 +94,9 @@ a:hover, a:focus, a:active {
     object-fit: cover;
     height: 150px;
 }
+
+.img-small-home {
+    width: 100%;
+    object-fit: cover;
+    height: 160px;
+}
