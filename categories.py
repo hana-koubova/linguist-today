@@ -1,5 +1,5 @@
 categories = [
-        'Kids and Langauges',
+        'Kids and Languages',
         {'Language Learning': [
             'Research',
             'Spanish Language',
@@ -7,7 +7,6 @@ categories = [
             'Tips and Trends',
             'Travel Related'
         ]},
-        'Language Models',
         'Linguistics',
         {'Multilingualism': [
             'Polyglots',
@@ -15,6 +14,28 @@ categories = [
         ]},
         'Other Categories']
 
+url_categories = {
+    'kids_languages': 'Kids and Languages',
+    'language_learning': 'Language Learning',
+    'research': 'Research',
+    'spanish': 'Spanish Language',
+    'basque': 'Basque Language',
+    'tips_trends': 'Tips and Trends',
+    'travel': 'Travel Related',
+    'linguistics': 'Linguistics',
+    'multilingualism': 'Multilingualism',
+    'polyglots': 'Polyglots',
+    'bilingualism': 'Bilingualism',
+    'other': 'Other Categories'
+}
+
+url_subcategories = {
+    'kids_languages': ['Kids and Languages'],
+    'language_learning': ['Research', 'Spanish Language', 'Basque Language', 'Tips and Trends', 'Travel Related'],
+    'linguistics': ['Linguistics'],
+    'multilingualism': ['Polyglots', 'Bilingualism'],
+    'other': ['Other Categories']
+}
 
 ## Creating categories for drop-down
 

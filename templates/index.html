@@ -6,7 +6,7 @@
 <div class="container-fluid p-3 pt-5">
     <div class="row m-3 d-flex justify-content-center">
         <div class="col-lg-3 col-sm-10">
-            <h3 class="fw-bold">Latest Articles</h3>
+            <h3 class="fw-bolder">Latest Articles</h3>
 
             <!--Latest article DIV-->
             {% for article in latest_articles %}
@@ -30,9 +30,9 @@
         </div>
         <div class="col-lg-9 col-sm-10">
             <div class="row d-flex justify-content-center">
-                <div class="col-lg-8 col-sm-10">
+                <div class="col-lg-8 col-sm-12">
                     <!--MAIN Article-->
-                    <div class="container m-2">
+                    <div class="container">
                         <div class="row">
                             <div class="col">
             
@@ -50,9 +50,10 @@
                         </div>
 
                     </div>
+                    <hr class="mobile-divider">
                 </div>
 
-                <div class="col-lg-4 col-sm-10">
+                <div class="col-lg-4 col-sm-12">
                     {% for piece in popular %}
                     <div class="row">
                         <div class="container m-2">

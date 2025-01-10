@@ -100,3 +100,9 @@ a:hover, a:focus, a:active {
     object-fit: cover;
     height: 160px;
 }
+
+@media only screen and (min-width: 920px) {
+    .mobile-divider {
+        display: none;
+    }
+}

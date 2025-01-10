@@ -28,7 +28,7 @@
         <ul class="navbar-nav ml-auto">
 
           <li class="nav-item">
-            <a class="nav-link" href="">Kids and Languages</a>
+            <a class="nav-link" href="{{ url_for('category_page', category='kids_languages') }}">Kids and Languages</a>
           </li>
 
           <li class="nav-item dropdown">
@@ -36,13 +36,13 @@
               Language Learning
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">All</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('category_page', category='language_learning') }}">All</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Research</a></li>
-              <li><a class="dropdown-item" href="#">Spanish Language</a></li>
-              <li><a class="dropdown-item" href="#">Basque Language</a></li>
-              <li><a class="dropdown-item" href="#">Tips and Trends</a></li>
-              <li><a class="dropdown-item" href="#">Travel Related</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('category_page', category='language_learning', subcategory='research') }}">Research</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('category_page', category='language_learning', subcategory='spanish') }}">Spanish Language</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('category_page', category='language_learning', subcategory='basque') }}">Basque Language</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('category_page', category='language_learning', subcategory='tips_trends') }}">Tips and Trends</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('category_page', category='language_learning', subcategory='travel') }}">Travel Related</a></li>
             </ul>
           </li>
 
@@ -50,21 +50,21 @@
             <a class="nav-link" href="">Language Models</a>
           </li>-->
           <li class="nav-item">
-            <a class="nav-link" href="">Linguistics</a>
+            <a class="nav-link" href="{{ url_for('category_page', category='linguistics') }}">Linguistics</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Multilingualism
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">All</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('category_page', category='multilingualism') }}">All</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Bilingualism</a></li>
-              <li><a class="dropdown-item" href="#">Polyglots</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('category_page', category='multilingualism', subcategory='bilingualism') }}">Bilingualism</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('category_page', category='multilingualism', subcategory='polyglots') }}">Polyglots</a></li>
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Other Categories</a>
+            <a class="nav-link" href="{{ url_for('category_page', category='other') }}">Other Categories</a>
           </li>
           
         </ul>

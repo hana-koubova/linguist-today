@@ -2,7 +2,7 @@ from datetime import datetime
 from bson import ObjectId
 import os
 import random
-from categories import dropdown_cats, sub_cats_simple
+from categories import dropdown_cats, sub_cats_simple, url_categories, url_subcategories
 from helper import art_images
 import psycopg2
 
@@ -100,7 +100,54 @@ def index():
                            images_dict = images_dict,
                            popular=popular)
 
-@app.route('/<article_url>')
+
+@app.route('/<category>', defaults={'subcategory': None}, methods=['GET', 'POST'])
+@app.route('/<category>/<subcategory>', methods=['GET', 'POST'])
+def category_page(category, subcategory):
+    
+    cat = url_categories[category]
+    category_articles = False
+
+    images_all = images_db.find({})
+    images_dict = {}
+    for image in images_all:
+        images_dict[image['name']] = {'alt': image['alt'],
+                                      'description': image['description']}
+
+    if subcategory == None:
+        subcat=subcategory
+        all_subcategories = url_subcategories[category]
+        print(all_subcategories)
+        if len(all_subcategories) == 1:
+            print('ONE CATEGORY')
+            category_articles = articles.find({'category': all_subcategories[0]})
+        else:
+            print('MANY SUBCATEGORIES')
+            subcat_list = []
+            for one_subcategory in all_subcategories:
+                dict_addition = {'category': '--'+one_subcategory}
+                subcat_list.append(dict_addition)
+            category_articles = articles.find({'$or':subcat_list})
+
+    else:
+        print('ONE SUBCATEGORY')
+        subcat = url_categories[subcategory]
+        print(subcat)
+        category_articles = articles.find({'category': '--'+subcat})
+
+    category_articles_list = list(category_articles)
+    #print(category_articles_len)
+    if len(category_articles_list) == 0:
+        print('EMTPY OBJECT')
+        category_articles_list = False
+
+    return render_template('category.html',
+                           category=cat,
+                           subcategory=subcat,
+                           images_dict=images_dict,
+                           category_articles=category_articles_list)
+
+@app.route('/article/<article_url>', methods=['GET', 'POST'])
 def article(article_url):
     article = articles.find_one({'url': article_url})
     return render_template('article.html',

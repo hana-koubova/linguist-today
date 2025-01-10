@@ -1,0 +1,54 @@
+{% extends "base_admin.html" %}
+{% block content %}
+
+<div class="container-fluid m-3 p-3">
+    {% if subcategory == None %}
+    <h2 class="fw-bolder text-center m-5">{{ category }}</h2>
+    {% else %}
+    <h2 class="fw-bolder text-center m-5"> {{ subcategory }}</h2>
+    {% endif %}
+
+    <div class="row m-3 p-3 justify-content-center">
+        {% if category_articles == False %}
+        <p>No articles in this category.</p>
+
+        {% else %}
+
+
+
+            <!--HERE START-->
+            
+            <div class="col-lg-8 col-sm-12">
+                {% for article in category_articles %}
+                
+                <div class="row mb-5">
+                    <div class="container m-2">
+                        <div class="row d-flex justify-content-center">
+
+                            <div class="col-lg-6 col-sm-12">
+                                <img class="img-small-home" src="../static/images/article_images/{{ article.image_main }}" alt="{{ images_dict[article.image_main]['alt'] }}" />
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12">
+                                <a class="headline-link" href="{{ url_for('article', article_url=article.url) }}"><h5 class="fw-bold">{{ article.title }}</h5></a>
+
+                                <div class="small-letters">{{ (article.text[:150])|safe }}...</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                
+                {% endfor %}
+            </div>
+            
+            <!--HERE FINISH-->
+        {% endif %}
+        
+    </div>
+
+</div>
+
+{% endblock %}
