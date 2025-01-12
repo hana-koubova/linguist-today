@@ -17,8 +17,21 @@
 
             <h1 class="mt-5 mb-5">{{ article.title }}</h1>
             <p class="mb-3 date">{{ article.date_published.strftime('%B %d, %Y') }}</p>
-            {{ article.text|safe }} 
-            {{ article.author }}
+            {{ article.text|safe }}
+
+            <div class="col-12 mt-5 author-section shadow-strong">
+                <div class="row">
+                    <div class="col-4 d-flex justify-content-center">
+                        <img src="../static/images/logos/hana-profile.png" height="100px">
+                    </div>
+                    <div class="col-8">
+                        <h5 class="fw-bolder">{{ article.author }}</h5>
+                        <p>Language enthusiast</p>
+                    </div>
+                </div>
+                
+            </div>
+            
 
         </div>
         <div class="col-2">

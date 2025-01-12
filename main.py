@@ -3,7 +3,7 @@ from bson import ObjectId
 import os
 import random
 from categories import dropdown_cats, sub_cats_simple, url_categories, url_subcategories
-from helper import art_images
+from helper import art_images, images_dict
 import psycopg2
 
 from flask import Flask, render_template, request, url_for, redirect, flash, session, jsonify, send_file, send_from_directory, make_response
@@ -14,9 +14,10 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 
+#from pymongo.mongo_client import MongoClient
+#from pymongo.server_api import ServerApi
 
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
+from database import db, articles, images_db, admins
 
 
 from forms import AdminForm, ArticleForm, ImageForm
@@ -61,21 +62,20 @@ csrf.init_app(app)
 
 ## Mongo DB
 
+#uri = os.environ.get('MONGO_URI')
+## Create a new client and connect to the server
+#client = MongoClient(uri, server_api=ServerApi('1'))
+## Send a ping to confirm a successful connection
+#try:
+#    client.admin.command('ping')
+#    print("Pinged your deployment. You successfully connected to MongoDB!")
+#except Exception as e:
+#    print(e)
 
-uri = os.environ.get('MONGO_URI')
-# Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
-# Send a ping to confirm a successful connection
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
-
-db = client['linguisttoday']
-articles = db['articles']
-admins = db['admins']
-images_db = db['images']
+#db = client['linguisttoday']
+#articles = db['articles']
+#admins = db['admins']
+#images_db = db['images']
 
 
 ## All published articles
@@ -85,12 +85,12 @@ articles_published = articles.find({'publish': True})
 @app.route("/")
 def index():
     latest_articles = articles.find({}).sort({'date_published': -1})
-    images_all = images_db.find({})
 
-    images_dict = {}
-    for image in images_all:
-        images_dict[image['name']] = {'alt': image['alt'],
-                                      'description': image['description']}
+    #images_all = images_db.find({})
+    #images_dict = {}
+    #for image in images_all:
+    #    images_dict[image['name']] = {'alt': image['alt'],
+    #                                  'description': image['description']}
     category_random = random.choice(sub_cats_simple)
     print(category_random)
     popular = [articles.find_one({'title': 'The scientifically proven benefits of being bilingual'}), articles.find_one({'title': "Polyglots’ brain activity and what we know so far"})]
@@ -108,11 +108,11 @@ def category_page(category, subcategory):
     cat = url_categories[category]
     category_articles = False
 
-    images_all = images_db.find({})
-    images_dict = {}
-    for image in images_all:
-        images_dict[image['name']] = {'alt': image['alt'],
-                                      'description': image['description']}
+    #images_all = images_db.find({})
+    #images_dict = {}
+    #for image in images_all:
+    #    images_dict[image['name']] = {'alt': image['alt'],
+    #                                  'description': image['description']}
 
     if subcategory == None:
         subcat=subcategory
@@ -156,15 +156,15 @@ def article(article_url):
 
 
 
-@app.route('/test')
-def test_connection():
-    try:
-        # Try listing collections as a basic test
-        databases = client.list_database_names()
-        collections = db.list_collection_names()
-        return f"Connected! Collections: {collections}"
-    except Exception as e:
-        return f"Connection failed: {str(e)}", 500
+#@app.route('/test')
+#def test_connection():
+#    try:
+#        # Try listing collections as a basic test
+#        databases = client.list_database_names()
+#        collections = db.list_collection_names()
+#        return f"Connected! Collections: {collections}"
+#    except Exception as e:
+#        return f"Connection failed: {str(e)}", 500
 
 
     

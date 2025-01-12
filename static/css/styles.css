@@ -2,6 +2,7 @@
     --orange: #FA6432;
     --yellow-light: #FFCC4B;
     --yellow-dark: #F1A600;
+    --grey-light: #F8F9FA;
 
 }
 
@@ -55,6 +56,15 @@ a:hover, a:focus, a:active {
     color: black;
 }
 
+.serif-font {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    letter-spacing: -0.08rem;
+}
+
+.monospace-font {
+    font-family: Arial, Helvetica, sans-serif
+}
+
 /* ----------------------
        Article page
 ------------------------- */
@@ -78,6 +88,25 @@ a:hover, a:focus, a:active {
     height: 400px;
     object-position: center;
 }
+
+.author-section {
+    background-color: var(--grey-light);
+    padding: 10px;
+    border-radius: 5px;
+    
+}
+
+.shadow-light {
+    -webkit-box-shadow: 1px 1px 10px 0px rgba(217,217,217,0.4);
+    -moz-box-shadow: 1px 1px 10px 0px rgba(217,217,217,0.4);
+    box-shadow: 1px 1px 10px 0px rgba(217,217,217,0.4);
+}
+
+.shadow-strong {
+    -webkit-box-shadow: 1px 1px 10px 0px rgba(217,217,217,0.6);
+      -moz-box-shadow: 1px 1px 10px 0px rgba(217,217,217,0.6);
+      box-shadow: 1px 1px 10px 0px rgba(217,217,217,0.7);
+  }
 
 /* ----------------------
        Home page
