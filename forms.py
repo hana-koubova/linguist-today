@@ -28,3 +28,8 @@ class ImageForm(FlaskForm):
     alt = StringField(label='Alt text', validators=[DataRequired()])
     description = StringField(label='Description', validators=[DataRequired()])
     submit = SubmitField(label='Save')
+
+class LegalForm(FlaskForm):
+    name = StringField(label='Name', validators=[DataRequired()])
+    text = CKEditorField(label="Job Description", validators=[DataRequired()])
+    submit = SubmitField(label='Save text')

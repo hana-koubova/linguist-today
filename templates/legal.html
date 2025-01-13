@@ -1,0 +1,22 @@
+{% extends "base_admin.html" %}
+{% block admin_content %}
+
+
+<div class="container-fluid m-3 p-3 border">
+    <h3>Legal</h3>
+    <div class="row m-3 p-3 border justify-content-center">
+
+        {% for doc in legal_docs %}
+        <div class="col-8 border m-3 p-3">
+        
+            <h3>{{ doc.name}}</h3>
+            <a href="{{ url_for('legal_edit', doc_id=doc._id) }}">Edit</a>
+        
+        </div>
+        {% endfor %}
+        
+    </div>
+
+</div>
+
+{% endblock %}

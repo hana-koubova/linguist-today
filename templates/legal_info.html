@@ -1,0 +1,16 @@
+{% extends "base.html" %} 
+{% block title %} {{ doc.name }} {% endblock %}
+{% block description %}"{{ doc.name }} for Linguist Today Blog."{% endblock %}
+{% block content %}
+
+<div class="container-fluid p-3">
+
+    <div class="row p-3 justify-content-center">
+        <div class="col-lg-7 col-md-10 col-sm-12">
+            <h1>{{ doc.name }}</h1>
+            {{ doc.text|safe }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

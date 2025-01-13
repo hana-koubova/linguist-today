@@ -14,13 +14,10 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 
-#from pymongo.mongo_client import MongoClient
-#from pymongo.server_api import ServerApi
-
-from database import db, articles, images_db, admins
+from database import db, articles, images_db, admins, legals
 
 
-from forms import AdminForm, ArticleForm, ImageForm
+from forms import AdminForm, ArticleForm, ImageForm, LegalForm
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -59,24 +56,6 @@ def user_loader(username):
 
 csrf = CSRFProtect(app)
 csrf.init_app(app)
-
-## Mongo DB
-
-#uri = os.environ.get('MONGO_URI')
-## Create a new client and connect to the server
-#client = MongoClient(uri, server_api=ServerApi('1'))
-## Send a ping to confirm a successful connection
-#try:
-#    client.admin.command('ping')
-#    print("Pinged your deployment. You successfully connected to MongoDB!")
-#except Exception as e:
-#    print(e)
-
-#db = client['linguisttoday']
-#articles = db['articles']
-#admins = db['admins']
-#images_db = db['images']
-
 
 ## All published articles
 articles_published = articles.find({'publish': True})
@@ -333,6 +312,37 @@ def edit_image(image_id):
     return render_template('edit_image.html',
                            image=image_to_edit,
                            form=form)
+
+@app.route('/legal')
+@login_required
+def legal():
+    legal_docs = legals.find({})
+    return render_template('legal.html',
+                           legal_docs=legal_docs)
+
+@app.route('/legal_edit/<doc_id>', methods=['GET', 'POST'])
+@login_required
+def legal_edit(doc_id):
+    form = LegalForm()
+    legal_doc = legals.find_one({'_id': ObjectId(doc_id)})
+    print(legal_doc['name'])
+    if form.validate_on_submit() and request.method == 'POST':
+        new_values = {"$set": { 'name': request.form['name'],
+                               'text': request.form['text']}}
+        legals.update_one(legal_doc, new_values)
+        return redirect(url_for('legal'))
+    
+    print(form.errors)
+
+    return render_template('legal_edit.html',
+                           doc=legal_doc,
+                           form=form)
+
+@app.route('/legal/<legal_url>')
+def legal_info(legal_url):
+    legal_doc = legals.find_one({'legal_url': legal_url})
+    return render_template('legal_info.html',
+                           doc = legal_doc)
 
 @app.route('/logout')
 def logout():

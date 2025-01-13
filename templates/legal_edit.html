@@ -1,0 +1,26 @@
+{% extends "base_admin.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% block admin_content %}
+
+<h1 class="text-center m-4">Edit Legal</h1>
+
+<div class="row d-flex justify-content-center mb-3">
+    <div class="col-lg-6 col-md-10 col-sm-12">
+
+        <form class="edit_form" method="POST" action="{{ url_for('legal_edit', doc_id=doc._id) }}">     
+    
+            {{ form.csrf_token }}
+            <!-- Name-->
+            {{ form.name(class_="form-control", value=doc.name) }}
+            <br>
+            {{ ckeditor.create(value=doc.text, name="text") }}
+            <br>
+            {{ form.submit(class="primary-btn form-control") }}
+    
+        </form>
+    </div>
+</div>
+
+{{ ckeditor.load(custom_url=url_for('static', filename='ckeditor/ckeditor.js')) }}
+
+{% endblock %}
