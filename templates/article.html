@@ -13,7 +13,7 @@
         
 
     <div class="row p-3 justify-content-center">
-        <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="col-lg-7 col-md-10 col-sm-12">
 
             <h1 class="mt-5 mb-5">{{ article.title }}</h1>
             <p class="mb-3 date">{{ article.date_published.strftime('%B %d, %Y') }}</p>
@@ -34,8 +34,28 @@
             
 
         </div>
-        <div class="col-2">
-            <p>Here comes something</p>
+
+        <div class="col-lg-3 col-md-6 col-sm-10 mt-5 d-flex flex-column justify-content-around">
+            {% for sugg in suggestions %}
+            
+            <div class="container m-2">
+                <div class="row">
+                    <div class="col">
+                        <img class="img-small-home" src="../static/images/article_images/{{ sugg.image_main }}" alt="{{ images_dict[sugg.image_main]['alt'] }}" />
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="headline-link" href="{{ url_for('article', article_url=sugg.url) }}"><h5 class="fw-bold">{{ sugg.title }}</h5></a>
+
+                        <!--<div class="small-letters">{{ (sugg.text[:60])|safe }}...</div>-->
+                    </div>
+                </div>
+            </div>
+            
+            {% endfor %}
+            
         </div>
 
     </div>

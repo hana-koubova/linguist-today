@@ -3,7 +3,7 @@ from bson import ObjectId
 import os
 import random
 from categories import dropdown_cats, sub_cats_simple, url_categories, url_subcategories
-from helper import art_images, images_dict
+from helper import art_images, images_dict, article_suggestion
 import psycopg2
 
 from flask import Flask, render_template, request, url_for, redirect, flash, session, jsonify, send_file, send_from_directory, make_response
@@ -150,9 +150,13 @@ def category_page(category, subcategory):
 @app.route('/article/<article_url>', methods=['GET', 'POST'])
 def article(article_url):
     article = articles.find_one({'url': article_url})
+    #print(article['category'])
+    suggestions = article_suggestion(article['category'], ObjectId(article['_id']))
     return render_template('article.html',
                            article=article,
-                           article_url=article_url)
+                           article_url=article_url,
+                           suggestions=suggestions,
+                           images_dict=images_dict)
 
 
 
