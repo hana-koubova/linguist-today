@@ -17,6 +17,7 @@ def images_all_dict():
     for image in images_all:
         images_dict[image['name']] = {'alt': image['alt'],
                                       'description': image['description']}
+    print(images_dict)
     return images_dict
 
 images_dict = images_all_dict()
