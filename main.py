@@ -16,10 +16,11 @@ from pymongo import MongoClient
 
 from database import db, articles, images_db, admins, legals
 
-
+## Forms, Login, Security
 from forms import AdminForm, ArticleForm, ImageForm, LegalForm
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.exceptions import HTTPException
 
 ## WTFORMS
 
@@ -60,6 +61,22 @@ csrf.init_app(app)
 ## All published articles
 articles_published = articles.find({'publish': True})
 
+## Errors
+    
+@app.errorhandler(404)
+def handle_404_error(err):
+    return render_template('404.html')
+
+#@app.errorhandler(Exception)
+#def handle_exception(err):
+#    # pass through HTTP errors
+#    if isinstance(err, HTTPException):
+#        return err#
+
+#    # now you're handling non-HTTP exceptions only
+#    return render_template("500.html",
+#                           err=err), 500
+
 
 @app.route("/")
 def index():
@@ -77,12 +94,19 @@ def index():
 @app.route('/<category>', defaults={'subcategory': None}, methods=['GET', 'POST'])
 @app.route('/<category>/<subcategory>', methods=['GET', 'POST'])
 def category_page(category, subcategory):
+
+    if category not in url_categories:
+        return render_template('404.html'), 404
     
     cat = url_categories[category]
     category_articles = False
 
     if subcategory == None:
         subcat=subcategory
+
+        if category not in url_subcategories:
+            return render_template('404.html'), 404
+
         all_subcategories = url_subcategories[category]
         print(all_subcategories)
         if len(all_subcategories) == 1:
@@ -98,6 +122,9 @@ def category_page(category, subcategory):
 
     else:
         print('ONE SUBCATEGORY')
+
+        if subcategory not in url_categories:
+            return render_template('404.html'), 404
         subcat = url_categories[subcategory]
         print(subcat)
         category_articles = articles.find({'category': '--'+subcat})
@@ -118,6 +145,10 @@ def category_page(category, subcategory):
 def article(article_url):
     article = articles.find_one({'url': article_url})
     #print(article['category'])
+    # If the article doesn't exist, return a 404 page
+    if not article:
+        return render_template('404.html'), 404
+    
     suggestions = article_suggestion(article['category'], ObjectId(article['_id']))
     return render_template('article.html',
                            article=article,
