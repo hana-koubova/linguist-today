@@ -64,12 +64,6 @@ articles_published = articles.find({'publish': True})
 @app.route("/")
 def index():
     latest_articles = articles.find({}).sort({'date_published': -1})
-
-    #images_all = images_db.find({})
-    #images_dict = {}
-    #for image in images_all:
-    #    images_dict[image['name']] = {'alt': image['alt'],
-    #                                  'description': image['description']}
     category_random = random.choice(sub_cats_simple)
     print(category_random)
     popular = [articles.find_one({'title': 'The scientifically proven benefits of being bilingual'}), articles.find_one({'title': "Polyglots’ brain activity and what we know so far"})]
@@ -86,12 +80,6 @@ def category_page(category, subcategory):
     
     cat = url_categories[category]
     category_articles = False
-
-    #images_all = images_db.find({})
-    #images_dict = {}
-    #for image in images_all:
-    #    images_dict[image['name']] = {'alt': image['alt'],
-    #                                  'description': image['description']}
 
     if subcategory == None:
         subcat=subcategory
@@ -136,19 +124,6 @@ def article(article_url):
                            article_url=article_url,
                            suggestions=suggestions,
                            images_dict=images_dict)
-
-
-
-#@app.route('/test')
-#def test_connection():
-#    try:
-#        # Try listing collections as a basic test
-#        databases = client.list_database_names()
-#        collections = db.list_collection_names()
-#        return f"Connected! Collections: {collections}"
-#    except Exception as e:
-#        return f"Connection failed: {str(e)}", 500
-
 
     
 @app.route('/admin', methods=['GET', 'POST'])
@@ -285,8 +260,8 @@ def scan_images():
             images_db.insert_one(new_image)
             upload += 1
     if upload > 0:
-        return 'Images uploaded to database.', {"Refresh": "3; url=/dashboard"}
-    return 'No new images to upload.', {"Refresh": "3; url=/dashboard"}
+        return 'Images uploaded to database.', {"Refresh": "3; url=/images"}
+    return 'No new images to upload.', {"Refresh": "3; url=/images"}
 
 @app.route('/edit_image/<image_id>', methods=['GET', 'POST'])
 @login_required
@@ -353,7 +328,10 @@ def logout():
 def users():
      return 'Nothing yet'
 
-  
+@app.route('/robots.txt')
+@app.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 if __name__ == "__main__":
     app.run(debug=True)
