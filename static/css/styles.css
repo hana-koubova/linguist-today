@@ -108,6 +108,10 @@ a:hover, a:focus, a:active {
       box-shadow: 1px 1px 10px 0px rgba(217,217,217,0.7);
   }
 
+  .article-div li {
+    font-size: 1.2em;
+  }
+
 /* ----------------------
        Home page
 ------------------------- */
