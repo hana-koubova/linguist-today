@@ -79,20 +79,24 @@
                 </div>
 
             </div>
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-3 col-sm-10">
-                    <p>Category</p>
-                </div>
-                <div class="col-lg-3 col-sm-10">
-                    <p>Category</p>
-                </div>
-                <div class="col-lg-3 col-sm-10">
-                    <p>Category</p>
-                </div>
-                <div class="col-lg-3 col-sm-10">
-                    <p>Category</p>
+            <!--CATEGORY SPANISH-->
+            <div class="row d-flex justify-content-center mt-3">
+            
+                <div class="col-lg-3 col-sm-12">
+                    <h3 class="serif-font fw-bolder">Spanish Language</h3>
+                    <p><a href="{{ url_for('category_page', category='language_learning', subcategory='spanish') }}">More articles</a></p>
                 </div>
 
+                {% for spanish in spanish_articles %}
+                <div class="col-lg-3 col-sm-12 mt-3">
+                    <div class="col">
+                        <img class="img-small-home" src="static/images/article_images/{{ spanish.image_main }}" alt="{{ images_dict[spanish.image_main]['alt'] }}" />
+                    </div>
+                    <a class="headline-link" href="{{ url_for('article', article_url=spanish.url) }}"><h5 class="fw-bold">{{ spanish.title }}</h5></a>
+                </div>
+                {% endfor %}
+               
+            
             </div>
 
         </div>

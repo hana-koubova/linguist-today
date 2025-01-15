@@ -84,11 +84,14 @@ def index():
     category_random = random.choice(sub_cats_simple)
     print(category_random)
     popular = [articles.find_one({'title': 'The scientifically proven benefits of being bilingual'}), articles.find_one({'title': "Polyglots’ brain activity and what we know so far"})]
+    spanish_articles = (list(articles.find({'category': '--Spanish Language'}).sort({'date_published': -1})))[:3]
+    #three_spanish = spanish_articles[:2]
     return render_template('index.html',
                            latest_articles=latest_articles[:4],
                            latest = latest_articles[0],
                            images_dict = images_dict,
-                           popular=popular)
+                           popular=popular,
+                           spanish_articles=spanish_articles)
 
 
 @app.route('/<category>', defaults={'subcategory': None}, methods=['GET', 'POST'])
