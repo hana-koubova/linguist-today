@@ -371,15 +371,10 @@ def users():
 def robots():
     return send_from_directory(app.static_folder, 'robots.txt')
 
-#@app.route('/sitemap.xml')
-#def sitemap():
-#    return send_from_directory(app.static_folder, 'sitemap.xml')
-
 @app.route('/sitemap.xml')
 def sitemap():
-    return render_template('sitemap.xml')
+    return send_from_directory(app.static_folder, 'sitemap.xml')
 
     
-
 if __name__ == "__main__":
     app.run(debug=True)
