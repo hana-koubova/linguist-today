@@ -156,7 +156,7 @@ def article(article_url):
     return render_template('article.html',
                            article=article,
                            article_url=article_url,
-                           #suggestions=suggestions,
+                           suggestions=suggestions,
                            images_dict=images_dict)
 
     
