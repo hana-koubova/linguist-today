@@ -25,10 +25,15 @@ images_dict = images_all_dict()
 ## Article suggestion
 
 def article_suggestion(category, article_id):
-    popular = [articles.find_one({'title': 'The scientifically proven benefits of being bilingual'}), articles.find_one({'title': "Polyglots’ brain activity and what we know so far"})]
+    popular = [articles.find_one({'title': 'The Scientifically Proven Benefits of Being Bilingual'}), articles.find_one({'title': "Polyglots’ Brain Activity and What We Know So Far"})]
     same_category = list(articles.find({'category': category}))
+    print(len(same_category))
     for article in same_category:
+        print(article['_id'])
+        print(article_id)
         if article['_id'] == article_id:
+            print("THIS IS NOT WORKING")
+            
             same_category.remove(article)
             break
 

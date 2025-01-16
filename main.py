@@ -83,7 +83,7 @@ def index():
     latest_articles = articles.find({}).sort({'date_published': -1})
     category_random = random.choice(sub_cats_simple)
     print(category_random)
-    popular = [articles.find_one({'title': 'The scientifically proven benefits of being bilingual'}), articles.find_one({'title': "Polyglots’ brain activity and what we know so far"})]
+    popular = [articles.find_one({'title': 'The Scientifically Proven Benefits of Being Bilingual'}), articles.find_one({'title': "Polyglots’ Brain Activity and What We Know So Far"})]
     spanish_articles = (list(articles.find({'category': '--Spanish Language'}).sort({'date_published': -1})))[:3]
     #three_spanish = spanish_articles[:2]
     return render_template('index.html',
@@ -156,7 +156,7 @@ def article(article_url):
     return render_template('article.html',
                            article=article,
                            article_url=article_url,
-                           suggestions=suggestions,
+                           #suggestions=suggestions,
                            images_dict=images_dict)
 
     
