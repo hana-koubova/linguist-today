@@ -3,6 +3,8 @@ from database import images_db, articles
 from categories import categories
 import random
 
+popular = [articles.find_one({'title': 'The Scientifically Proven Benefits of Being Bilingual'}), articles.find_one({'title': "Polyglots’ Brain Differences and What We Know So Far"})]
+
 ## Function listing down images used for articles
 def images():
     return os.listdir('static/images/article_images/')
@@ -25,7 +27,7 @@ images_dict = images_all_dict()
 ## Article suggestion
 
 def article_suggestion(category, article_id):
-    popular = [articles.find_one({'title': 'The Scientifically Proven Benefits of Being Bilingual'}), articles.find_one({'title': "Polyglots’ Brain Activity and What We Know So Far"})]
+    
     same_category = list(articles.find({'category': category}))
     print(len(same_category))
     for article in same_category:

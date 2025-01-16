@@ -3,7 +3,7 @@ from bson import ObjectId
 import os
 import random
 from categories import dropdown_cats, sub_cats_simple, url_categories, url_subcategories
-from helper import art_images, images_dict, article_suggestion
+from helper import art_images, images_dict, article_suggestion, popular
 import psycopg2
 
 from flask import Flask, render_template, request, url_for, redirect, flash, session, jsonify, send_file, send_from_directory, make_response
@@ -83,7 +83,7 @@ def index():
     latest_articles = articles.find({}).sort({'date_published': -1})
     category_random = random.choice(sub_cats_simple)
     print(category_random)
-    popular = [articles.find_one({'title': 'The Scientifically Proven Benefits of Being Bilingual'}), articles.find_one({'title': "Polyglots’ Brain Activity and What We Know So Far"})]
+    #popular = [articles.find_one({'title': 'The Scientifically Proven Benefits of Being Bilingual'}), articles.find_one({'title': "Polyglots’ Brain Activity and What We Know So Far"})]
     spanish_articles = (list(articles.find({'category': '--Spanish Language'}).sort({'date_published': -1})))[:3]
     #three_spanish = spanish_articles[:2]
     return render_template('index.html',
