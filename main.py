@@ -362,10 +362,24 @@ def logout():
 def users():
      return 'Nothing yet'
 
+#@app.route('/robots.txt')
+#@app.route('/sitemap.xml')
+#def static_from_root():
+#    return send_from_directory(app.static_folder, request.path[1:])
+
 @app.route('/robots.txt')
+def robots():
+    return send_from_directory(app.static_folder, 'robots.txt')
+
+#@app.route('/sitemap.xml')
+#def sitemap():
+#    return send_from_directory(app.static_folder, 'sitemap.xml')
+
 @app.route('/sitemap.xml')
-def static_from_root():
-    return send_from_directory(app.static_folder, request.path[1:])
+def sitemap():
+    return render_template('sitemap.xml')
+
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
