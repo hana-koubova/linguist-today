@@ -1,6 +1,21 @@
 {% extends "base.html" %} 
 {% block title %} {{ article.title }} {% endblock %}
 {% block description %}"{{ article.metadata }}"{% endblock %}
+
+{% block head %}
+<!-- Structured Data -->
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{{ article.title }}",
+      "datePublished": "{{ article.date_published.strftime('%Y-%m-%dT%H:%M:%S%z') }}",
+      "url": "{{ url_for('article', article_url=article.url, _external=True) }}"
+    }
+    </script>
+
+{% endblock %}
+
 {% block content %}
 
 <div class="container-fluid p-3">

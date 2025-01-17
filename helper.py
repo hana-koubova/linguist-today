@@ -1,9 +1,11 @@
 import os
 from database import images_db, articles
 from categories import categories
+from bson import ObjectId
 import random
 
-popular = [articles.find_one({'title': 'The Scientifically Proven Benefits of Being Bilingual'}), articles.find_one({'title': "Polyglots’ Brain Differences and What We Know So Far"})]
+popular = [articles.find_one({'_id': ObjectId('677d3077d72d3c8d95823973')}),
+           articles.find_one({'_id': ObjectId("677d2ecb277f063e79bc08bb")})]
 
 ## Function listing down images used for articles
 def images():
