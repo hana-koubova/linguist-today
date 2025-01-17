@@ -8,7 +8,11 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "author": "{{ article.author }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ article.author }}",
+        "url": ""
+      },
       "image": "{{ url_for('static', filename='images/article_images/' + article.image_main, _external=True) }}",
       "headline": "{{ article.title }}",
       "datePublished": "{{ article.date_published.astimezone().strftime("%Y-%m-%dT%H:%M:%S%z") }}",
