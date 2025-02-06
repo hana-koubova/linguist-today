@@ -114,14 +114,14 @@ def category_page(category, subcategory):
         print(all_subcategories)
         if len(all_subcategories) == 1:
             print('ONE CATEGORY')
-            category_articles = articles.find({'category': all_subcategories[0]})
+            category_articles = articles.find({'category': all_subcategories[0]}).sort({'date_published': -1})
         else:
             print('MANY SUBCATEGORIES')
             subcat_list = []
             for one_subcategory in all_subcategories:
                 dict_addition = {'category': '--'+one_subcategory}
                 subcat_list.append(dict_addition)
-            category_articles = articles.find({'$or':subcat_list})
+            category_articles = articles.find({'$or':subcat_list}).sort({'date_published': -1})
 
     else:
         print('ONE SUBCATEGORY')
@@ -130,7 +130,7 @@ def category_page(category, subcategory):
             return render_template('404.html'), 404
         subcat = url_categories[subcategory]
         print(subcat)
-        category_articles = articles.find({'category': '--'+subcat})
+        category_articles = articles.find({'category': '--'+subcat}).sort({'date_published': -1})
 
     category_articles_list = list(category_articles)
     #print(category_articles_len)
