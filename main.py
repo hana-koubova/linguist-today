@@ -3,7 +3,7 @@ from bson import ObjectId
 import os
 import random
 from categories import dropdown_cats, sub_cats_simple, url_categories, url_subcategories
-from helper import art_images, images_dict, article_suggestion, popular
+from helper import art_images, images_dict, article_suggestion, popular, insert_after_paragraphs
 import psycopg2
 
 from flask import Flask, render_template, request, url_for, redirect, flash, session, jsonify, send_file, send_from_directory, make_response
@@ -149,6 +149,11 @@ def article(article_url):
     article = articles.find_one({'url': article_url})
     #print(article['category'])
     # If the article doesn't exist, return a 404 page
+
+    #testing_img = '<img src="../static/favicons/favicon-16x16.png"/>'
+    # Preprocess the article text
+    #article['text'] = insert_after_paragraphs(article['text'], testing_img, 3)
+
     if not article:
         return render_template('404.html'), 404
     
@@ -310,11 +315,11 @@ def edit_image(image_id):
         new_name = '.'.join([request.form['name'], name_ending])
         old_name = image_to_edit['name']
         
-        new_values = {"$set": { 'name': new_name,
+        new_values = {"$set": {#'name': new_name,
                                'alt': request.form['alt'],
                                'description': request.form['description']}}
         images_db.update_one(image_to_edit, new_values)
-        os.rename(f'static/images/article_images/{old_name}', f'static/images/article_images/{new_name}')
+        #os.rename(f'static/images/article_images/{old_name}', f'static/images/article_images/{new_name}')
         
         return redirect(url_for('images'))
                                

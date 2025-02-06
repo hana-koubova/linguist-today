@@ -56,3 +56,17 @@ def article_suggestion(category, article_id):
         suggestions = random.sample(same_category, 2)
 
     return suggestions
+
+
+def insert_after_paragraphs(text, link, n):
+    # Split paragraphs by </p>, keeping the closing tag for reconstruction
+    paragraphs = text.split("</p>")
+    for i in range(len(paragraphs)):
+        if paragraphs[i].strip():  # Reattach the closing </p> to non-empty paragraphs
+            paragraphs[i] += "</p>"
+
+    # Insert the link after the nth paragraph
+    if 0 < n <= len(paragraphs):
+        paragraphs.insert(n, f'<p>{link}</p>')
+
+    return "".join(paragraphs)
