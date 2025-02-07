@@ -85,10 +85,10 @@ def index():
     print(category_random)
     #popular = [articles.find_one({'title': 'The Scientifically Proven Benefits of Being Bilingual'}), articles.find_one({'title': "Polyglots’ Brain Activity and What We Know So Far"})]
     spanish_articles = (list(articles.find({'category': '--Spanish Language'}).sort({'date_published': -1})))[:3]
-    children_articles = (list(articles.find({'category': 'Kids and Languages'}).sort({'date_published': -1})))[:4]
+    children_articles = (list(articles.find({'category': 'Kids and Languages'}).sort({'date_published': -1})))[:3]
     #three_spanish = spanish_articles[:2]
     return render_template('index.html',
-                           latest_articles=latest_articles[:4],
+                           latest_articles=latest_articles[:5],
                            latest = latest_articles[0],
                            images_dict = images_dict,
                            popular=popular,
@@ -205,9 +205,12 @@ def admin():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    current_articles = articles.find({})
+    current_articles = list(articles.find({}).sort({'date_published': -1}))
+    #numbering = range(len(current_articles), 1, -1)
+    num_articles = len(current_articles)
     return render_template('dashboard.html',
-                           current_articles = current_articles)
+                           current_articles = current_articles,
+                           num_articles=num_articles)
 
 @app.route('/add_article', methods=['GET', 'POST'])
 @login_required

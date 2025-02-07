@@ -119,6 +119,25 @@
                 </div>
                 {% endfor %}
                
+            </div>
+
+            <!-- CATEGORY CHILDREN -->
+            <div class="row d-flex justify-content-center mt-3">
+            
+                <div class="col-lg-3 col-sm-12">
+                    <h3 class="serif-font fw-bolder text-center">Kids and Language</h3>
+                    <p class="text-center"><a href="{{ url_for('category_page', category='kids_languages') }}">More articles</a></p>
+                </div>
+        
+                {% for child in children_articles %}
+                <div class="col-lg-3 col-sm-12 mt-3">
+                    <div class="col">
+                        <img class="img-small-home" src="static/images/article_images/{{ child.image_main }}" alt="{{ images_dict[child.image_main]['alt'] }}" />
+                    </div>
+                    <a class="headline-link" href="{{ url_for('article', article_url=child.url) }}"><h5 class="fw-bold">{{ child.title }}</h5></a>
+                </div>
+                {% endfor %}
+               
             
             </div>
 
@@ -126,29 +145,6 @@
 
     </div>
     
-</div>
-
-<!--Children Category-->
-
-<div class="container-fluid p-3 pt-5">
-    <div class="row d-flex justify-content-center mt-3">
-            
-        <div class="col-lg-3 col-sm-12">
-            <h3 class="serif-font fw-bolder text-center">Kids and Language</h3>
-            <p class="text-center"><a href="{{ url_for('category_page', category='kids_language') }}">More articles</a></p>
-        </div>
-
-        {% for child in children_articles %}
-        <div class="col-lg-2 col-sm-12 mt-3">
-            <div class="col">
-                <img class="img-small-home" src="static/images/article_images/{{ child.image_main }}" alt="{{ images_dict[child.image_main]['alt'] }}" />
-            </div>
-            <a class="headline-link" href="{{ url_for('article', article_url=child.url) }}"><h5 class="fw-bold">{{ child.title }}</h5></a>
-        </div>
-        {% endfor %}
-       
-    
-    </div>
 </div>
 
 {% endblock %}
