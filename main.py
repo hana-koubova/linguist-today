@@ -3,7 +3,7 @@ from bson import ObjectId
 import os
 import random
 from categories import dropdown_cats, sub_cats_simple, url_categories, url_subcategories
-from helper import art_images, images_dict, article_suggestion, popular, insert_after_paragraphs
+from helper import art_images, images_dict, article_suggestion, popular, insert_after_paragraphs, images_all_dict
 import psycopg2
 
 from flask import Flask, render_template, request, url_for, redirect, flash, session, jsonify, send_file, send_from_directory, make_response
@@ -238,6 +238,7 @@ def add_article():
         }
         print(new_article['date_published'])
         articles.insert_one(new_article)
+        images_dict = images_all_dict()
         return "Article added!", {"Refresh": "3; url=/dashboard"}
 
 
