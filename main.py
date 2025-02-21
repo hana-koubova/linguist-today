@@ -238,7 +238,6 @@ def add_article():
         }
         print(new_article['date_published'])
         articles.insert_one(new_article)
-        images_dict = images_all_dict()
         return "Article added!", {"Refresh": "3; url=/dashboard"}
 
 
@@ -291,9 +290,9 @@ def images():
 @app.route('/scan_images', methods=['GET', 'POST'])
 def scan_images():
     print(art_images)
+    upload = 0
     for image in art_images:
         print(image)
-        upload = 0
         allowed_formats = ['jpg', 'jpeg', 'png', 'gif']
         image_exist = images_db.find_one({'name': image})
         if image_exist == None and image.split('.')[1] in allowed_formats:
@@ -305,6 +304,7 @@ def scan_images():
             images_db.insert_one(new_image)
             upload += 1
     if upload > 0:
+        images_dict = images_all_dict()
         return 'Images uploaded to database.', {"Refresh": "3; url=/images"}
     return 'No new images to upload.', {"Refresh": "3; url=/images"}
 
